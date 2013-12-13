@@ -1,19 +1,18 @@
 package stc.skymobi.bean;
 
-
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
-
 import stc.skymobi.bean.AbstractCommonBean;
+import stc.skymobi.bean.tlv.TLVSignal;
 import stc.skymobi.bean.tlv.annotation.TLVAttribute;
+import stc.skymobi.bean.xip.core.XipRequest;
 
 /**
- * @author jason.zheng
- *
+ * @author zhenyu.zheng
+ * 
  */
-public class AuthResponse extends AbstractCommonBean {
-	@TLVAttribute(tag=10020001)
-	private Result result;
+@TLVAttribute(tag = 2110002)
+public class AuthResponse extends AbstractCommonBean implements TLVSignal, XipRequest{
+	@TLVAttribute(tag=11020001, description="")
+	private Result result = new Result(200);
 
 	public Result getResult() {
 		return result;
@@ -22,9 +21,4 @@ public class AuthResponse extends AbstractCommonBean {
 	public void setResult(Result result) {
 		this.result = result;
 	}
-	
-	public String toString() {
-        return  ToStringBuilder.reflectionToString(this, 
-                            ToStringStyle.SHORT_PREFIX_STYLE);
-    } 
 }

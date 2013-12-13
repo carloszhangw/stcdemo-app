@@ -3,23 +3,22 @@
 <beans>
     <import resource="classpath:stc/skymobi/ebus/spring/Configurable.xml" />
     
-    <!-- provide httpSendbackHelper bean -->
-    <import resource="classpath:stc/part/transport/NettyHttpSendbackHelperIntf.xml" />
-    
     <!-- provide SmartFSM instance bean -->
     <import resource="classpath:unitrepo/stc/part/fsm/SmartFSMImpl.xml" />
+    
+        <!-- provide httpSendbackHelper bean -->
+    <import resource="classpath:stc/part/transport/NettyHttpSendbackHelperIntf.xml" />
     
     <!-- provide jmxExporter instance bean -->
     <import resource="classpath:unitrepo/stc/part/fsm/SmartFSMJmxExporter.xml" />
     
     <bean id="businessFlow"
-        class="stc.skymobi.app.biz.AuthBiz" >
+        class="stc.skymobi.biz.AuthBiz" >
         <property name="sendbackHelper" ref="httpSendbackHelper" />
-        <property name="logTimeout"   value="${log.timeout}" />
     </bean>
     
     <bean id="businessContext" 
-        class="stc.skymobi.app.biz.AuthCtx" 
+        class="stc.skymobi.biz.AuthCtx" 
         singleton="false">
         <constructor-arg            ref="smartFsm"/>
         <property name="eventBus"   ref="eventBus" />
