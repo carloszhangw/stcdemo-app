@@ -1,45 +1,41 @@
 package stc.skymobi.bean;
 
-
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
+/**
+ * @author zhenyu.zheng
+ * 
+ */
 
 import stc.skymobi.bean.AbstractCommonBean;
+import stc.skymobi.bean.tlv.TLVSignal;
 import stc.skymobi.bean.tlv.annotation.TLVAttribute;
+import stc.skymobi.bean.xip.core.XipRequest;
 
-/**
- * @author jason.zheng
- *
- */
-public class AuthRequest extends AbstractCommonBean {
-	@TLVAttribute(tag=10020002)
-	private UaInfo uainfo;
-	
-	public UaInfo getUainfo() {
-		return uainfo;
-	}
+@TLVAttribute(tag = 1110002)
+public class AuthRequest extends AbstractCommonBean implements TLVSignal, XipRequest{
+	@TLVAttribute(tag=11010002, description = "斯凯ID")
+	private int skyId;
 
-	public void setUainfo(UaInfo uainfo) {
-		this.uainfo = uainfo;
-	}
-
-	@TLVAttribute(tag=10010005)
-	private Integer skyid;
-	
-	@TLVAttribute(tag=10010006)
+	@TLVAttribute(tag=11010014, description = "授权令牌")
 	private String token;
-	
-	public String toString() {
-        return  ToStringBuilder.reflectionToString(this, 
-                            ToStringStyle.SHORT_PREFIX_STYLE);
-    }
 
-	public Integer getSkyid() {
-		return skyid;
+	//验证前的应用@验证的应用
+	@TLVAttribute(tag=11010012, description = "登录来源") 
+	private String source;
+	
+	public String getSource() {
+		return source;
 	}
 
-	public void setSkyid(Integer skyid) {
-		this.skyid = skyid;
+	public void setSource(String source) {
+		this.source = source;
+	}
+
+	public int getSkyId() {
+		return skyId;
+	}
+
+	public void setSkyId(int skyId) {
+		this.skyId = skyId;
 	}
 
 	public String getToken() {
@@ -48,5 +44,5 @@ public class AuthRequest extends AbstractCommonBean {
 
 	public void setToken(String token) {
 		this.token = token;
-	} 
+	}
 }

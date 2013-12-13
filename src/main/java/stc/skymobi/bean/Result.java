@@ -1,6 +1,3 @@
-/**
- * 
- */
 package stc.skymobi.bean;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -8,45 +5,35 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 import stc.skymobi.bean.tlv.annotation.TLVAttribute;
 
-/**
- * @author jason.zheng
- *
- */
-@TLVAttribute(tag = 10020001)
+
+@TLVAttribute(tag = 11020001)
 public class Result {
+	@TLVAttribute(tag=11010063,description="错误码")
+	private int errorCode;
+	@TLVAttribute(tag=11010064,description="错误信息")
+	private String errorMessage;
 	
-	@TLVAttribute(tag=10010001)
-	private	Integer	resultcode;
-	
-	@TLVAttribute(tag=10010002, charset="UTF-16BE")
-	private	String	resultmsg;	
-	
-	public Result(int code, String msg){
-		this.resultcode = code;
-		this.resultmsg = msg;
+	public Result(int code) {
+		errorCode = code;
+		errorMessage = String.valueOf(code);
 	}
 	
-	public Result(){
+	public int getErrorCode() {
+		return errorCode;
 	}
-	
-	public Integer getResultcode() {
-		return resultcode;
+	public void setErrorCode(int errorCode) {
+		this.errorCode = errorCode;
+		this.errorMessage = String.valueOf(errorCode);
 	}
-
-	public void setResultcode(Integer resultcode) {
-		this.resultcode = resultcode;
+	public String getErrorMessage() {
+		return errorMessage;
 	}
-
-	public String getResultmsg() {
-		return resultmsg;
+	public void setErrorMessage(String errorMessage) {
+		this.errorMessage = errorMessage;
 	}
-
-	public void setResultmsg(String resultmsg) {
-		this.resultmsg = resultmsg;
-	}
-
+ 
 	public String toString() {
-        return  ToStringBuilder.reflectionToString(this, 
-                            ToStringStyle.SHORT_PREFIX_STYLE);
-    }  
+		return  ToStringBuilder.reflectionToString(this, 
+				ToStringStyle.SHORT_PREFIX_STYLE);
+	}
 }
