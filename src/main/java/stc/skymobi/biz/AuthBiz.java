@@ -3,13 +3,17 @@
  */
 package stc.skymobi.biz;
 
+import java.util.UUID;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import stc.skymobi.bean.*;
 import stc.skymobi.fsm.FiniteStateMachine;
+import stc.skymobi.fsm.event.UUIDTimeoutEvent;
 import stc.skymobi.fsm.tmpl.annotation.OnAccept;
 import stc.skymobi.fsm.tmpl.annotation.OnEnter;
+import stc.skymobi.fsm.tmpl.annotation.OnTimeout;
 import stc.skymobi.fsm.tmpl.annotation.StateTemplate;
 import stc.skymobi.netty.handler.codec.http.response.SendbackResponseHelper;
 import stc.skymobi.netty.transport.TransportUtils;
@@ -27,6 +31,12 @@ public class AuthBiz {
     
     private	SendbackResponseHelper	sendbackHelper;
     
+    private int logTimeout = 0;
+	
+	public void setLogTimeout(int logTimeout) {
+		this.logTimeout = logTimeout;
+	}
+	
 	public void setSendbackHelper(SendbackResponseHelper sendbackHelper) {
 		this.sendbackHelper = sendbackHelper;
 	}	
@@ -42,9 +52,38 @@ public class AuthBiz {
 			resp.setResult(new Result(404));
 			ctx.setRequest(req);
 			ctx.setResponse(resp);
-			return SendResp.class;
+			return ToLog.class;
 		}
 
+	}
+	
+	@StateTemplate
+	class ToLog {
+		
+		@OnEnter
+		boolean enter(FiniteStateMachine fsm, AuthCtx ctx) {
+			
+			LogRequest req = new LogRequest();
+			req.skyId = ctx.getRequest().getSkyId();
+			req.setIdentification((UUID)ctx.getKey());
+			
+			ctx.fireEventWithTimeout(new UUIDTimeoutEvent(req.getIdentification()), logTimeout, "com.skymobi.event.app.log", req);
+			return	true;
+		}
+		
+		@OnAccept
+		Class<?> accept(FiniteStateMachine fsm, AuthCtx ctx, LogResponse resp) {
+
+			logger.info("recv log resp {}", resp);
+			ctx.getResponse().setResult(new Result(200));
+			return SendResp.class;
+		}
+		
+		@OnTimeout
+		Class<?> onTimeout(FiniteStateMachine fsm, AuthCtx ctx) {
+			ctx.getResponse().setResult(new Result(500));
+	        return SendResp.class;
+		}		
 	}
 	
 	@StateTemplate
