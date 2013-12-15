@@ -36,8 +36,8 @@ start)
     done
     JAVA_OPTS="${JAVA_OPTS} -Xms$HEAP_MEMORY -Xmx$HEAP_MEMORY -XX:PermSize=$PERM_MEMORY -XX:MaxPermSize=$PERM_MEMORY -Dcom.sun.management.jmxremote.port=$JMX_PORT -Duser.dir=$SERVER_HOME -Dapp.name=$SERVER_NAME -Djava.library.path=$SERVER_HOME/lib"
     echo "start jvm args ${JAVA_OPTS}"
-    nohup java $JAVA_OPTS -jar ${SERVER_HOME}/bin/${SERVER_NAME}.jar  >/dev/null &
-    nohup java $JAVA_OPTS -jar ${SERVER_HOME}/bin/${SERVER_NAME}.jar  >/dev/null &
+    #nohup java $JAVA_OPTS -jar ${SERVER_HOME}/bin/${SERVER_NAME}.jar  >/dev/null &
+    nohup java $JAVA_OPTS -jar ${SERVER_HOME}/bin/${SERVER_NAME}.jar  &
     echo $! > $PIDFILE
     echo STARTED
     ;;
