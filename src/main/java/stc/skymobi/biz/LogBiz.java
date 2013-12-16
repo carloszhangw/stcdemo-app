@@ -12,6 +12,8 @@ import stc.skymobi.fsm.FSMContext;
 import stc.skymobi.fsm.FiniteStateMachine;
 import stc.skymobi.fsm.tmpl.annotation.OnAccept;
 import stc.skymobi.fsm.tmpl.annotation.StateTemplate;
+import stc.skymobi.service.IFirstService;
+import stc.skymobi.service.ISecondService;
 
 /**
  * @author jason.zheng
@@ -24,11 +26,20 @@ public class LogBiz {
     
     private String event = "";
     
-    public void setEvent(String event) {
-		this.event = event;
+    private IFirstService firstService = null;
+    private ISecondService secondService = null;
+    
+    public void setFirstService(IFirstService firstService) {
+		this.firstService = firstService;
 	}
 
+	public void setSecondService(ISecondService secondService) {
+		this.secondService = secondService;
+	}
 
+	public void setEvent(String event) {
+		this.event = event;
+	}
 
 	@StateTemplate(init = true)
 	class RecvReq {
@@ -48,6 +59,9 @@ public class LogBiz {
 			LogResponse resp = new LogResponse();
 			resp.setIdentification(req.getIdentification());
 			resp.skyId = req.skyId;
+			
+			logger.info("FirstService:"+firstService.methodFirst());
+			logger.info("SecondService:"+secondService.methodSecond());
 			
 			ctx.fireEventWithTimeout(null, 0, event, resp);
 	

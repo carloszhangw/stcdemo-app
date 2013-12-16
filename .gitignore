@@ -1,7 +1,7 @@
 *.class
-./bin
+/bin
 # Package Files #
 *.jar
 *.war
 *.ear
-/bin
+*.zip
