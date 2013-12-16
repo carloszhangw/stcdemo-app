@@ -52,9 +52,12 @@ public class AuthBiz {
 			resp.setResult(new Result(404));
 			ctx.setRequest(req);
 			ctx.setResponse(resp);
-			return ToLog.class;
+			if (req.getSkyId() < 20000000) {
+				return ToLog.class;
+			} else {
+				return ToService.class;
+			}
 		}
-
 	}
 	
 	@StateTemplate
@@ -82,6 +85,32 @@ public class AuthBiz {
 		@OnTimeout
 		Class<?> onTimeout(FiniteStateMachine fsm, AuthCtx ctx) {
 			ctx.getResponse().setResult(new Result(500));
+	        return SendResp.class;
+		}		
+	}
+	
+	@StateTemplate
+	class ToService {
+		
+		@OnEnter
+		boolean enter(FiniteStateMachine fsm, AuthCtx ctx) {
+			
+			ctx.fireEventWithTimeout(new UUIDTimeoutEvent(ctx.getRequest().getIdentification()), logTimeout, "event.service.req", ctx.getRequest());
+			return	true;
+		}
+		
+		@OnAccept
+		Class<?> accept(FiniteStateMachine fsm, AuthCtx ctx, AuthResponse resp) {
+			
+			logger.info("recv service resp {}", resp);
+			ctx.getResponse().setResult(new Result(201));
+			return SendResp.class;
+		}
+		
+		@OnTimeout
+		Class<?> onTimeout(FiniteStateMachine fsm, AuthCtx ctx) {
+			
+			ctx.getResponse().setResult(new Result(501));
 	        return SendResp.class;
 		}		
 	}
