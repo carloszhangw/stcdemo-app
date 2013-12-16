@@ -13,6 +13,10 @@ public class Result {
 	@TLVAttribute(tag=11010064,description="错误信息")
 	private String errorMessage;
 	
+	public Result(){
+		errorCode=-1;
+	}
+	
 	public Result(int code) {
 		errorCode = code;
 		errorMessage = String.valueOf(code);
