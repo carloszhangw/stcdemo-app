@@ -1,0 +1,27 @@
+<ivysettings>
+	<property name="repo.urlbase" value="http://stcdev.sky-mobi.com:8080/nexus/content"/>
+	<property name="ivy.local.default.root"             value="${ivy.settings.dir}/../stc-libs/" override="false"/>
+    <settings defaultResolver="default"/>
+    <resolvers>
+        <ibiblio name="default" m2compatible="true"/>        
+        <chain name="local" >
+			<url name="inner-snapshot" m2compatible="true" checkconsistency="false">
+				<ivy pattern="${repo.urlbase}/repositories/snapshots/[organisation]/[module]/[revision]/ivy-[revision].xml"/>
+				<artifact pattern="${repo.urlbase}/repositories/snapshots/[organisation]/[module]/[revision]/[artifact]-[revision]-[type].[ext]"/>
+			</url>
+			<url name="inner-release" m2compatible="true">
+				<ivy pattern="${repo.urlbase}/repositories/releases/[organisation]/[module]/[revision]/ivy-[revision].xml"/>
+				<artifact pattern="${repo.urlbase}/repositories/releases/[organisation]/[module]/[revision]/[artifact]-[revision]-[type].[ext]"/>
+			</url>
+			<ibiblio name="public" m2compatible="true" root="${repo.urlbase}/groups/public/"/>
+		</chain>
+		<filesystem name="localfile">
+        	<ivy pattern="${ivy.local.default.root}/[organisation]/[module]/ivy-[revision].xml"/>
+			<artifact pattern="${ivy.local.default.root}/[organisation]/[module]/[artifact]-[revision]-[type].[ext]"/>
+        </filesystem>
+    </resolvers>
+    <modules>
+        <module organisation="skymobi.stc" resolver="localfile"/>
+        <module organisation="org.jocean" resolver="localfile"/>
+    </modules>
+</ivysettings>

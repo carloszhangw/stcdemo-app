@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--ant 脚本文件 -->
-<project name="stcdemo-app" default="make-dist" basedir="." >
+<project name="stcdemo-app" default="make-dist" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant" >
 
 	<!--设置下面要用到的属性-->
 	<property environment="env" />
@@ -9,7 +9,8 @@
 	<property name="module.version" value="v1.1.0" />
 	<property name="module.main.src" value="${module.home}/src/main/java" />
 	<property name="module.main.resources" value="${module.home}/src/main/resource" />
-	<property name="module.contrib.lib" value="../stc-lib/lib2" />
+	<property name="module.contrib.lib" value="lib" />
+	<property name="module.stc.lib" value="stclib" />
 	<property name="module.target" value="${module.home}/build" />
 	<property name="compile.script" value="${module.home}/scripts" />
 	<property name="compile.debug" value="on" />
@@ -18,8 +19,14 @@
 	<property name="compile.encoding" value="UTF-8" />
 	<property name="compile.source" value="1.6" />
 	<property name="compile.target" value="1.6" />
+	<!-- 
 	<property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter" />
+	-->
 
+	<ivy:settings file="ivysettings.xml" />	
+	<!-- 
+	<property name="stc.repository.dir" location="../stclib" />
+	-->
 	
 	<!--设置时间截格式化变量，当生成.jar 发布文件时要用于定义文件名-->
 	<tstamp prefix="build.">
@@ -81,7 +88,7 @@
     </target>
 	
 	<!--执行编译JAVA文件-->
-	<target name="compile" depends="init, prepare-dep">
+	<target name="compile" depends="init, prepare-dep, resolve">
 		<echo>编译源代码并拷贝资源文件</echo>
 		<javac srcdir="${module.main.src}" 
 			destdir="${module.target}/src/classes" 
@@ -214,5 +221,9 @@
 			<fileset dir="${module.target}" />
 		</delete>
 	</target>
+	
+	<target name="resolve" description="--> retreive dependencies with ivy">	         
+		<ivy:retrieve type="jar"/>
+    </target>  
 	
 </project>

@@ -1,0 +1,55 @@
+<ivy-module version="2.0">
+    <info organisation="org.apache" module="stc-gis"/>
+    <dependencies>
+        <!-- spring -->
+        <dependency org="org.springframework" name="spring-core" rev="3.2.3.RELEASE"/>
+        <dependency org="org.springframework" name="spring-context" rev="3.2.3.RELEASE"/>
+        <dependency org="org.springframework" name="spring-context-support" rev="3.2.3.RELEASE"/>
+     
+        <!-- orm -->
+        <dependency org="org.mybatis" name="mybatis-spring" rev="1.2.1"/>    
+
+        <!-- log -->
+        <dependency org="org.slf4j" name="slf4j-api" rev="1.7.5"/>
+        <dependency org="ch.qos.logback" name="logback-classic" rev="1.0.13" />
+
+        <!-- db -->
+        <!-- 
+        <dependency org="postgresql" name="postgresql" rev="9.0-801.jdbc4" />
+        -->
+        <dependency org="mysql" name="mysql-connector-java" rev="5.1.28" />         
+
+        <!-- apache commons -->
+        <dependency org="commons-beanutils" name="commons-beanutils" rev="1.8.3" />
+        <dependency org="commons-collections" name="commons-collections" rev="3.2.1" />
+        <dependency org="commons-lang" name="commons-lang" rev="2.6" />
+        <dependency org="commons-io" name="commons-io" rev="2.3" />
+        <dependency org="commons-pool" name="commons-pool" rev="1.5.6" />
+        <dependency org="commons-codec" name="commons-codec" rev="1.6" />
+        <dependency org="commons-cli" name="commons-cli" rev="1.2" />
+        <dependency org="commons-dbcp" name="commons-dbcp" rev="1.4"/>            
+
+        <!-- cache -->
+        <dependency org="redis.clients" name="jedis" rev="2.2.1" />
+
+        <!-- others -->
+        <dependency org="io.netty" name="netty-all" rev="4.0.7.Final" />
+        
+        <dependency org="com.alibaba" name="fastjson" rev="1.1.37" />
+        <dependency org="net.sf.ehcache" name="ehcache" rev="2.8.0" />
+        <dependency org="org.beanshell" name="bsh"       rev="2.0b4"/>
+        <dependency org="org.jvnet.opendmk"   name="jmxremote_optional"   rev="1.0_01-ea" />
+        
+        <!-- stc -->
+        <dependency org="org.jocean" name="jocean-common" rev="0.1.4" transitive="false" />
+        <dependency org="skymobi.stc" name="stc-util" rev="1.0.20" transitive="false" />
+		<dependency org="skymobi.stc" name="stc-bean" rev="1.0.22" transitive="false" />
+		<dependency org="skymobi.stc" name="stc-fsm" rev="1.0.8" transitive="false" />
+		<dependency org="skymobi.stc" name="stc-unit-repo" rev="1.0.8" transitive="false" />
+        <dependency org="skymobi.stc" name="stc-ebus" rev="1.1.16" transitive="false" />
+		<dependency org="skymobi.stc" name="stc-jmx" rev="1.0.8" transitive="false" />
+		<dependency org="skymobi.stc" name="stc-io" rev="1.0.0" transitive="false" />
+		<dependency org="skymobi.stc" name="stc-nio-netty" rev="snapshot" transitive="false" />
+		<dependency org="skymobi.stc" name="stc-cache" rev="0.0.1" transitive="false" />
+        </dependencies>
+</ivy-module>
