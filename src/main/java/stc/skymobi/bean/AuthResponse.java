@@ -10,15 +10,15 @@ import stc.skymobi.bean.xip.core.XipRequest;
  * 
  */
 @TLVAttribute(tag = 2110002)
-public class AuthResponse extends AbstractCommonBean implements TLVSignal, XipRequest{
-	@TLVAttribute(tag=11020001, description="")
-	private Result result = new Result(200);
+public class AuthResponse extends AbstractCommonBean implements TLVSignal, XipRequest {
+  @TLVAttribute(tag = 11020001, description = "")
+  private Result result = new Result(200);
 
-	public Result getResult() {
-		return result;
-	}
+  public Result getResult() {
+    return result;
+  }
 
-	public void setResult(Result result) {
-		this.result = result;
-	}
+  public void setResult(Result result) {
+    this.result = result;
+  }
 }

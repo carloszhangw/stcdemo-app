@@ -10,30 +10,30 @@ import stc.skymobi.fsm.core.SmartContextImpl;
 
 /**
  * @author jason.zheng
- *
+ * 
  */
 public class AuthCtx extends SmartContextImpl {
 
-	private	AuthRequest		request;
-	private AuthResponse	response;
-	
-	public AuthCtx(FiniteStateMachine fsm) {
-		super(fsm);
-	}
+  private AuthRequest request;
+  private AuthResponse response;
 
-	public AuthRequest getRequest() {
-		return request;
-	}
+  public AuthCtx(FiniteStateMachine fsm) {
+    super(fsm);
+  }
 
-	public void setRequest(AuthRequest request) {
-		this.request = request;
-	}
+  public AuthRequest getRequest() {
+    return request;
+  }
 
-	public AuthResponse getResponse() {
-		return response;
-	}
+  public void setRequest(AuthRequest request) {
+    this.request = request;
+  }
 
-	public void setResponse(AuthResponse response) {
-		this.response = response;
-	}
+  public AuthResponse getResponse() {
+    return response;
+  }
+
+  public void setResponse(AuthResponse response) {
+    this.response = response;
+  }
 }

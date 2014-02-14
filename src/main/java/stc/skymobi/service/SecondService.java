@@ -1,11 +1,11 @@
 package stc.skymobi.service;
 
-public class SecondService implements ISecondService{
+public class SecondService implements ISecondService {
 
-	@Override
-	public String methodSecond() {
-		// TODO Auto-generated method stub
-		return "methodSecond";
-	}
+  @Override
+  public String methodSecond() {
+    // TODO Auto-generated method stub
+    return "methodSecond";
+  }
 
 }
